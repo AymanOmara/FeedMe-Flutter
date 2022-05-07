@@ -30,11 +30,16 @@ class _CategoryPageState extends State<CategoryPage> {
           future: _repo.getCategories(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Column(children: <Widget>[
-                buildCard(snapshot.data![0]),
-                buildCard(snapshot.data![1]),
-                buildCard(snapshot.data![3]),
-              ]);
+              return GridView.builder(
+                  scrollDirection: Axis.vertical,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisExtent: 260,
+                  ),
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return buildCard(snapshot.data![index]);
+                  });
             } else {
               return const CircularProgressIndicator();
             }
@@ -45,15 +50,18 @@ class _CategoryPageState extends State<CategoryPage> {
   }
 
   Widget buildCard(MyCategory? category) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Card(
-        margin: const EdgeInsets.all(1),
-        child: Column(
-          children: <Widget>[
-            Image.network(category!.categoryThumb!),
-            Text(category.categoryName!)
-          ],
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Card(
+          margin: const EdgeInsets.all(0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Image.network(category!.categoryThumb!),
+              Text(category.categoryName!)
+            ],
+          ),
         ),
       ),
     );
