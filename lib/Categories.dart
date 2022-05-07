@@ -4,8 +4,9 @@ class Category {
   String? strCategoryThumb;
   String? strCategoryDescription;
 
-  Category(this.idCategory,this.strCategory,this.strCategoryDescription);
-  Category.fromJson(Map<String, dynamic>json){
+  Category(this.idCategory, this.strCategory, this.strCategoryDescription);
+
+  Category.fromJson(Map<String, dynamic> json) {
     idCategory = json["idCategory"];
     strCategory = json["strCategory"];
     strCategoryThumb = json["strCategoryThumb"];
