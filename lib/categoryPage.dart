@@ -26,33 +26,21 @@ class _CategoryPageState extends State<CategoryPage> {
         title: const Text("title"),
       ),
       body: Center(
-          child: FutureBuilder<List<MyCategory>>(
-        future: _repo.getCategories(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return GridView.count(
-                primary: false,
-                padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 2,
-                children: <Widget>[
-                  buildCard(snapshot.data![0]),
-                  buildCard(snapshot.data![1]),
-                  buildCard(snapshot.data![3]),
-                ]);
-            // return Column(
-            //   children: <Widget>[
-            //     buildCard(snapshot.data![0]),
-            //     buildCard(snapshot.data![1]),
-            //     buildCard(snapshot.data![3]),
-            //   ],
-            // );
-          } else {
-            return const CircularProgressIndicator();
-          }
-        },
-      )),
+        child: FutureBuilder<List<MyCategory>>(
+          future: _repo.getCategories(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Column(children: <Widget>[
+                buildCard(snapshot.data![0]),
+                buildCard(snapshot.data![1]),
+                buildCard(snapshot.data![3]),
+              ]);
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        ),
+      ),
     );
   }
 
@@ -60,13 +48,14 @@ class _CategoryPageState extends State<CategoryPage> {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Card(
-          margin: const EdgeInsets.all(1),
-          child: Column(
-            children: <Widget>[
-              Image.network(category!.categoryThumb!),
-              Text(category.categoryName!)
-            ],
-          )),
+        margin: const EdgeInsets.all(1),
+        child: Column(
+          children: <Widget>[
+            Image.network(category!.categoryThumb!),
+            Text(category.categoryName!)
+          ],
+        ),
+      ),
     );
   }
 }
